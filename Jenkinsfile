@@ -6,14 +6,13 @@ pipeline {
     }
 
     environment {
-        APP_ENV = 'dev'
+        STAGE = 'dev'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                echo "📥 Checking out code..."
-                checkout scm
+                git 'https://github.com/harish1680/node-js-sample.git'
             }
         }
 
@@ -23,24 +22,24 @@ pipeline {
             }
         }
 
-        stage('Run Script') {
+        stage('Run Tests') {
             steps {
-                sh 'node index.js || echo "index.js not found, skipping..."'
+                echo 'Running tests...'
+                sh 'npm test'
             }
         }
 
-        stage('Environment Info') {
+        stage('Build') {
             steps {
-                echo "🔧 Running in environment: ${APP_ENV}"
-                sh 'node -v'
-                sh 'npm -v'
+                echo 'Building the app...'
+                sh 'npm run build'
             }
         }
-    }
 
-    post {
-        always {
-            echo "✅ Build complete"
+        stage('Deploy') {
+            steps {
+                echo "Deploying to $STAGE environment"
+            }
         }
     }
 }
