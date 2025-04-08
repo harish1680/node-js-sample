@@ -38,8 +38,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Deploying to $STAGE environment"
-            }
+                sh '''
+                    pm2 delete all || true
+                    pm2 start index.js --name node-js-sample
+                '''
+	         }
         }
     }
 }
