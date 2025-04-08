@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"All tests passed!\" && exit 0"
+    "test": "echo \"All tests passed!\" && exit 0",
+    "build": "echo \"Build successful!\""
   },
   "dependencies": {
     "express": "^4.13.3"
