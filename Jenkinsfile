@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        STAGE = 'dev'
+       PORT = credentials('PORT')
     }
 
     stages {
