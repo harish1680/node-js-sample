@@ -5,8 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"All tests passed!\" && exit 0",
+    "test": "jest",
     "build": "echo \"Build successful!\""
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
+  },
+  "jest-junit": {
+    "outputDirectory": "test-reports",
+    "outputName": "junit.xml"
   },
   "dependencies": {
     "express": "^4.13.3"
@@ -27,5 +37,10 @@
   "contributors": [
     "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0"
+  }
 }
+

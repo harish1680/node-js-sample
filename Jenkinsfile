@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'node-18'
+        nodejs 'node-18'  // Make sure this is configured in Jenkins global tools
     }
 
     environment {
-       PORT = credentials('PORT')
-       API_KEY = credentials('MY_SECRET_KEY')
+        PORT = credentials('PORT')              // Make sure these credentials exist in Jenkins
+        API_KEY = credentials('MY_SECRET_KEY')
     }
 
     stages {
@@ -26,7 +26,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 echo 'Running tests...'
-                sh 'npm test'
+                sh 'npm test -- --passWithNoTests' // In case no tests exist (optional)
             }
         }
 
@@ -40,10 +40,16 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    pm2 delete all || true
+                    pm2 delete node-js-sample || true
                     pm2 start index.js --name node-js-sample
                 '''
-	         }
+            }
+        }
+    }
+
+    post {
+        always {
+            junit 'test-reports/junit.xml'
         }
     }
 }
