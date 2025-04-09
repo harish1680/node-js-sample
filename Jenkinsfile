@@ -7,6 +7,7 @@ pipeline {
 
     environment {
        PORT = credentials('PORT')
+       API_KEY = credentials('MY_SECRET_KEY')
     }
 
     stages {
